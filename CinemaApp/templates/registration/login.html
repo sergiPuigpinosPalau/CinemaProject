@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<li><a href="{% url 'Lab_App:signup' %}"> Sign up</a></li>
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
