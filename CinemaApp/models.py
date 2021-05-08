@@ -12,21 +12,13 @@ class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
-class Genre(models.Model):
-    GENRE_TYPES = (('act', 'Action'), ('adv', 'Adventure'), ('ani', 'Animated'), ('com', 'Comedy'), ('dra', 'Drama'),
-                   ('fan', 'Fantasy'), ('his', 'Historical'), ('hor', 'Horror'), ('sci', 'Science fiction'),
-                   ('thr', 'Thriller'), ('wes', 'Western'))
-    name_genre = models.CharField(max_length=4, choices=GENRE_TYPES)
-
-    def __str__(self):
-        return self.name_genre
-
-
 class Movie(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    duration = models.IntegerField(null=True, blank=True)
+    genre = models.CharField(max_length=100, null=True, blank=True)
+    duration = models.CharField(max_length=100, null=True, blank=True)
+    released = models.CharField(max_length=100, null=True, blank=True)
+    poster = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name

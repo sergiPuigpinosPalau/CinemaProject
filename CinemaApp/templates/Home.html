@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="{% url 'CinemaApp:create_film' %}">Create Movie</a>
+    <br>
+    <br>
+    {% for movie in movie_list %}
+        <a href="{% url 'CinemaApp:detail_movie' movie.id %}">{{ movie.name }}</a>
+    {% endfor %}
+</body>
+</html>

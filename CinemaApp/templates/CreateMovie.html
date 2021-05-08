@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        plot="";
+        genre="";
+        duration="";
+        released="";
+        poster="";
+    $(function() {
+      $("#name").autocomplete({
+        source: function(request, response) {
+          $.ajax({
+            url: "http://www.omdbapi.com/?",
+            dataType: "json",
+            data: {
+                limit:10,
+              apikey: "b13b52b0",
+              t: request.term
+            },
+            success: function(data) {
+              console.log(data);
+              plot=data.Plot;
+              genre=data.Genre;
+              duration=data.Runtime;
+              released=data.Year;
+              poster=data.Poster;
+              response([data.Title]);
+            }
+          });
+        },
+        minLength: 2,
+          select: function(event, ui) {
+          if (ui.item) {
+            $("#description").val(plot);
+            $("#genre").val(genre);
+            $("#duration").val(duration);
+            $("#released").val(released);
+            $("#poster").val(poster);
+            document.getElementById("myImg").src = poster;
+          }
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+            <input id="name" name="name"> <br>
+            <textarea id="description" name="description"></textarea><br>
+            <input id="genre" name="genre"> <br>
+            <input id="duration" name="duration"> <br>
+            <input id="released" name="released"> <br>
+            <input id="poster" name="poster" style=" visibility: hidden;"> <br>
+            <img id="myImg" width="200" height="250"> <br>
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>
