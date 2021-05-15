@@ -6,6 +6,16 @@ from django.db.models import Q
 use_step_matcher("parse")
 
 
+@given('Exists a movie')
+def step_impl(context):
+    from CinemaApp.models import Movie
+    for row in context.table:
+        movie = Movie()
+        for heading in row.headings:
+            setattr(movie, heading, row[heading])
+        movie.save()
+
+
 @when(u'I register a movie')
 def step_impl(context):
     for row in context.table:

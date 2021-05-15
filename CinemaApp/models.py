@@ -36,11 +36,12 @@ class Hall(models.Model):
 
 
 class Schedule(models.Model):
-    starting_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
+    starting_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
 
     def __str__(self):
-        return "Schedule from " + str(self.starting_date) + " to " + str(self.end_date)
+        return "Schedule from " + str(self.starting_time) + " to " + str(self.end_time)
+
 
 #TODO eliminar?
 class Reservation(models.Model):
@@ -52,8 +53,8 @@ class Reservation(models.Model):
 
 
 class Session(models.Model):
-    duration = models.IntegerField(null=True, blank=True) #TODO eliminar
-    date = models.DateField(null=True, blank=True)  #TODO eliminar
+    duration = models.DurationField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie_sessions')
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)    #TODO limit to 1
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)

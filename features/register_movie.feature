@@ -1,7 +1,7 @@
 Feature: Register Movie
-  In order to keep track of the movies I visit
+  In order to keep track of the movies the cinema has
   As a user
-  I want to register a movie together with its location and contact details
+  I want to register a movie
 
   Background: There is a registered user
     Given Exists a user "user" with password "password"

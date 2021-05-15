@@ -12,4 +12,4 @@ class CreateFilmForm(forms.ModelForm):
 class CreateSessionForm(forms.ModelForm):
     class Meta:
         model = Session
-        fields = ['hall', 'schedule']
+        fields = ['hall', 'schedule', 'date']
