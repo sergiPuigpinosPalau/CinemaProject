@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Latest Movies</p>
+{% for movie in latest_movies %}
+    {{ movie.name }}
+{% endfor %}
+<br>
+<a href="{% url 'CinemaApp:movie_list' %}"> All movies </a>
+</body>
+</html>

@@ -3,17 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
-    <p>{{ movie.name }}</p>
-    <p>{{ movie.description }}</p>
-    <p>{{ movie.genre }}</p>
-    <p>{{ movie.duration }}</p>
-    <img src="{{ movie.poster }}" width="200" height="250"> <br>
-    <form action="{% url 'CinemaApp:delete_film' movie.id %}" method="post">{% csrf_token %}
-        <button onclick='this.parentNode.submit(); return false;'><i class="fas fa-trash-alt"></i> Eliminar peli >:(</button>
-    </form>
-    <a href=""></a>
+<p>{{ movie.name }}</p>
+<p>{{ movie.description }}</p>
+<p>{{ movie.genre }}</p>
+<p>{{ movie.duration }}</p>
+<img src="{{ movie.poster }}" width="200" height="250"> <br>
+<form action="{% url 'CinemaApp:delete_movie' movie.id %}" method="post">{% csrf_token %}
+    <button onclick='this.parentNode.submit(); return false;'><i class="fas fa-trash-alt"></i> Eliminar peli >:(
+    </button>
+</form>
+<br>
+<a href="{% url 'CinemaApp:create_session' movie.id %}">Crear sessio</a>
+    {% for session in movie.movie_sessions.all %}
+        <table>
+            <tr>
+                <th>Duration</th>
+                <th>Date</th>
+                <th>Hall</th>
+                <th>Schedule</th>
+            </tr>
+            <tr>
+                <td>{{ session.duration }}</td>
+                <td>{{ session.date }}</td>
+                <td>{{ session.hall }}</td>
+                <td>{{ session.schedule.starting_date }} -- {{ session.schedule.end_date }}</td>
+            </tr>
+        </table>
+    {% endfor %}
 </body>
 </html>

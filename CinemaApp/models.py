@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+from django.urls import reverse
 
 
 class Client(models.Model):
@@ -23,6 +24,9 @@ class Movie(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('CinemaApp:detail_movie', kwargs={'pk': self.pk})
+
 
 class Hall(models.Model):
     capacity = models.IntegerField(null=True, blank=True)
@@ -36,9 +40,9 @@ class Schedule(models.Model):
     end_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return "Schedule: " + str(self.id)
+        return "Schedule from " + str(self.starting_date) + " to " + str(self.end_date)
 
-
+#TODO eliminar?
 class Reservation(models.Model):
     price = models.FloatField()
     buy_date = models.DateField(null=True, blank=True)
@@ -48,9 +52,9 @@ class Reservation(models.Model):
 
 
 class Session(models.Model):
-    duration = models.IntegerField(null=True, blank=True)
-    date = models.DateField(null=True, blank=True)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    duration = models.IntegerField(null=True, blank=True) #TODO eliminar
+    date = models.DateField(null=True, blank=True)  #TODO eliminar
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie_sessions')
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)    #TODO limit to 1
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
 
