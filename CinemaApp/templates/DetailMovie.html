@@ -18,21 +18,28 @@
 </form>
 <br>
 <a href="{% url 'CinemaApp:create_session' movie.id %}">Crear sessio</a>
-    {% for session in movie.movie_sessions.all %}
-        <table>
-            <tr>
-                <th>Duration</th>
-                <th>Date</th>
-                <th>Hall</th>
-                <th>Schedule</th>
-            </tr>
-            <tr>
-                <td>{{ session.duration }}</td>
-                <td>{{ session.date }}</td>
-                <td>{{ session.hall }}</td>
-                <td>{{ session.schedule }}</td>
-            </tr>
-        </table>
-    {% endfor %}
+{% for session in movie.movie_sessions.all %}
+    <table id="schedule_table">
+        <tr>
+            <th>Duration</th>
+            <th>Date</th>
+            <th>Hall</th>
+            <th>Schedule</th>
+        </tr>
+        <tr>
+            <td>{{ session.duration }}</td>
+            <td>{{ session.date }}</td>
+            <td>{{ session.hall }}</td>
+            <td>{{ session.schedule }}</td>
+            <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}"> Modificar</a></td>
+            <td>
+                <form action="{% url 'CinemaApp:delete_session' movie.id session.id %}" method="post">{% csrf_token %}
+                    <button onclick='this.parentNode.submit(); return false;'><i class="fas fa-trash-alt"></i> Eliminar Sessio
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endfor %}
 </body>
 </html>

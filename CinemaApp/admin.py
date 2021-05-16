@@ -8,7 +8,6 @@ admin.site.register(Employee)
 admin.site.register(Movie)
 admin.site.register(Hall)
 admin.site.register(Schedule)
-admin.site.register(Reservation)
 admin.site.register(Session)
 
 

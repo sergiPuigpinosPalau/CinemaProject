@@ -41,7 +41,6 @@ class CreateMovie(LoginRequiredMixin, CreateView):
     model = Movie
     template_name = 'CreateMovie.html'
     form_class = CreateFilmForm
-    # success_url = reverse_lazy('CinemaApp:movie_list')
 
 
 class DetailMovie(DetailView):
@@ -54,9 +53,27 @@ class DeleteMovie(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('CinemaApp:movie_list')
 
 
-class ModifyMovie(LoginRequiredMixin, UpdateView):
-    model = Movie
-    success_url = reverse_lazy('CinemaApp:movie_list')
+class DeleteSession(LoginRequiredMixin, DeleteView):
+    model = Session
+
+    def get_success_url(self):
+        return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
+
+
+class ModifySession(LoginRequiredMixin, UpdateView):
+    model = Session
+    template_name = 'ModifySession.html'
+    fields = ['hall', 'date', 'schedule']
+    template_name_suffix = '_update_form'
+
+    def form_valid(self, form):
+        time = form.cleaned_data['schedule']
+        form.instance.duration = datetime.datetime.strptime(time.end_time.isoformat(), '%H:%M:%S') - \
+                                 datetime.datetime.strptime(time.starting_time.isoformat(), '%H:%M:%S')
+        return super(ModifySession, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
 
 
 class CreateSession(LoginRequiredMixin, CreateView):
