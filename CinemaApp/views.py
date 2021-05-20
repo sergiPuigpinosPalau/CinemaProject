@@ -36,6 +36,14 @@ class MovieList(ListView):
     template_name = 'Movies.html'
     context_object_name = 'movie_list'
 
+    paginate_by = 6
+
+    def get_queryset(self):
+        try:
+            return Movie.objects.all()
+        except:
+            return 0
+
 
 class CreateMovie(LoginRequiredMixin, CreateView):
     model = Movie

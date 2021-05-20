@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Cinema </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  crossorigin="anonymous">
+{% block scriptp %}
+{% endblock %}
+ <style>
+    body {
+            background-color: #292b2c;
+             font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+    }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+          <a class="nav-link"  href="{% url 'CinemaApp:create_movie' %}">Create Movie</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'CinemaApp:movie_list' %}">Movies</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'CinemaApp:movie_list' %}">{{user.username}}</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'CinemaApp:movie_list' %}">Logaut</a>
+      </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
+
+{% block script %}
+{% endblock %}
