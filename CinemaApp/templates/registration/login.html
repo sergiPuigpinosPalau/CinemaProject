@@ -29,50 +29,53 @@
     {{ form.as_p }}
     <button type="submit" value="login">Entrar</button>
 </form>
+{##}
+{#<div class="login-page" >#}
+{#<div class="col d-flex justify-content-center">#}
+{#    <div class="card w-50">#}
+{#          <div class="card-body bg-light text-dark">#}
+{##}
+{##}
+{#              <div class="container">#}
+{#                  <div class=" row y justify-content-center">#}
+{#                        <img src="{% static 'img/icona_cine.png' %}" alt="Logo">#}
+{#                  </div>#}
+{#              </div>#}
+{#              <h5 class="card-title text-center" >Welcome to the cinema</h5>#}
+{##}
+{#              {% if form.errors %}#}
+{#              <div class="alert alert-danger alert-dismissible fade show" role="alert">#}
+{#                  <p>Your username and password didn't match. <br> Please try again.</p>#}
+{#                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                    <span aria-hidden="true">&times;</span>#}
+{#                  </button>#}
+{#              </div>#}
+{#              {% endif %}#}
+{##}
+{#             <div class="container">#}
+{#                     <form method="post">#}
+{#                        {% csrf_token %}#}
+{##}
+{#                         {% if form.errors %}#}
+{#                                <p>Something is wrong</p>#}
+{#                         {% endif %}#}
+{##}
+{#                    <div class="form-floating p-2">#}
+{#                      <input type="email" class="form-control" id="floatingInput" placeholder="User Name" name="username">#}
+{#                    </div>#}
+{#                    <div class="form-floating p-2">#}
+{#                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">#}
+{#                    </div>#}
+{#                    </form> <br>#}
+{#                         <button class="w-100 btn btn-lg btn-dark p-2 " type="submit">Sign in</button>#}
+{##}
+{#            </div>#}
+{#          </div>#}
+{#    </div>#}
+{#</div>#}
+{#</div>#}
 
-<div class="login-page" >
-<div class="col d-flex justify-content-center">
-    <div class="card w-50">
-          <div class="card-body bg-light text-dark">
-
-
-              <div class="container">
-                  <div class=" row y justify-content-center">
-                        <img src="{% static 'img/icona_cine.png' %}" alt="Logo">
-                  </div>
-              </div>
-              <h5 class="card-title text-center" >Welcome to the cinema</h5>
-
-              {% if form.errors %}
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <p>Your username and password didn't match. <br> Please try again.</p>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              {% endif %}
-
-             <div class="container">
-                     <form method="post">
-                        {% csrf_token %}
-
-                         {% if form.errors %}
-                                <p>Something is wrong</p>
-                         {% endif %}
-
-                    <div class="form-floating p-2">
-                      <input type="email" class="form-control" id="floatingInput" placeholder="User Name" name="username">
-                    </div>
-                    <div class="form-floating p-2">
-                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-                    </div>
-                    </form> <br>
-                         <button class="w-100 btn btn-lg btn-dark p-2 " type="submit">Sign in</button>
-
-            </div>
-          </div>
-    </div>
-</div>
-</div>
+</body>
+</html>
 
 

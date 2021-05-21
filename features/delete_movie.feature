@@ -9,7 +9,6 @@ Feature: Delete Movie
       | name   |
       | Spider |
 
-
   Scenario: Delete movie
     Given I login as user "user" with password "password"
     Then I'm viewing the details page of a movie

@@ -34,12 +34,14 @@ def step_impl(context):
     q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
     from CinemaApp.models import Movie
     movie = Movie.objects.filter(reduce(operator.and_, q_list)).get()
-    assert context.browser.url == context.get_url(movie)
+    if context.browser.url != context.get_url('CinemaApp:detail_movie', movie.pk):
+        context.browser.visit(context.get_url('CinemaApp:detail_movie', movie.pk))
+    assert context.browser.find_by_id('Title').text.startswith(movie.name)
 
 
 @then('I delete the current movie')
 def step_impl(context):
-    context.browser.find_link_by_text('Eliminar Peli').click()
+    context.browser.find_by_id('delete_movie').click()
 
 
 @then(u'There are {count:n} movies')

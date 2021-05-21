@@ -10,7 +10,6 @@ def step_impl(context, movie_name):
         session = Session(movie=movie)
         for heading in row.headings:
             if heading == "duration":
-                #setattr(session, heading, datetime.datetime.strptime(row[heading], '%H:%M:%S'))
                 time = list(map(int, row[heading].split(':')))
                 session.duration = datetime.timedelta(hours=time[0], minutes=time[1], seconds=time[2])
             else:
@@ -20,7 +19,7 @@ def step_impl(context, movie_name):
 
 @then('I edit the current session')
 def step_impl(context):
-    context.browser.find_link_by_text('Modificar').click()
+    context.browser.find_by_id('Edit').click()
     form = context.browser.find_by_tag('form').first
     for heading in context.table.headings:
         if heading == "date":
@@ -33,7 +32,7 @@ def step_impl(context):
 
 @then('I delete the current session')
 def step_impl(context):
-    context.browser.find_link_by_text('Eliminar Sessio').click()
+    context.browser.find_by_id('delete_session').click()
 
 
 @then('There is no "{link_text}" link available')
