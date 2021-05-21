@@ -31,7 +31,9 @@
             <td>{{ session.date }}</td>
             <td>{{ session.hall }}</td>
             <td>{{ session.schedule }}</td>
-            <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}"> Modificar</a></td>
+            {% if user.is_authenticated %}
+            <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}" id="edit">Modificar</a></td>
+            {% endif %}
             <td>
                 <form action="{% url 'CinemaApp:delete_session' movie.id session.id %}" method="post">{% csrf_token %}
                     <button onclick='this.parentNode.submit(); return false;'><i class="fas fa-trash-alt"></i> Eliminar Sessio

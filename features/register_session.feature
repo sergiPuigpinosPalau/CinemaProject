@@ -19,18 +19,18 @@ Feature: Register Session
   Scenario: Register session
     Given I login as user "user" with password "password"
     When I register a session at the movie "Spider"
-      | date       | hall | schedule |
-      | 2021-01-02 | 1    | 1        |
+      | date       | id_hall | id_schedule |
+      | 2021-01-02 | 1       | 1           |
     Then I'm viewing the details of the session for the movie "Spider"
-      | date       | hall | schedule |
-      | 2021-01-02 | 1    | 1        |
+      | duration | date         | hall    | schedule                           |
+      | 2:00:00  | Jan. 2, 2021 | Hall: 1 | Schedule from 18:00:00 to 20:00:00 |
     And There are 1 sessions
 
 
-  Scenario: Try to register dish but not logged in
+  Scenario: Try to register session but not logged in
     Given I'm not logged in
     When I register a session at the movie "Spider"
-      | date       | hall | schedule |
+      | date       | id_hall | id_schedule |
       | 2021-01-02 | 1    | 1        |
     Then I'm redirected to the login form
     And There are 0 sessions

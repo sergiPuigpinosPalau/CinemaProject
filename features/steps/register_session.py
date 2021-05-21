@@ -34,31 +34,24 @@ def step_impl(context, movie_name):
         context.browser.visit(context.get_url('CinemaApp:create_session', movie.pk))
         if context.browser.url == context.get_url('CinemaApp:create_session', movie.pk):
             form = context.browser.find_by_tag('form').first
-            #context.browser.fill('date', '01/02/21')
-            #context.browser.choose('hall', 1)
-            #context.browser.choose('schedule', 1)
             for heading in row.headings:
                 if heading == "date":
                     context.browser.fill(heading, row[heading])
                 else:
-                    context.browser.choose(heading, row[heading])
+                    element = context.browser.find_by_id(heading).first
+                    element.select(row[heading])
             form.find_by_value('Submit').first.click()
 
 
 @then('I\'m viewing the details of the session for the movie "{movie_name}"')
 def step_impl(context, movie_name):
+    from CinemaApp.models import Movie
+    movie = Movie.objects.get(name=movie_name)
+    if context.browser.url != context.get_url('CinemaApp:detail_movie', movie.pk):
+        context.browser.visit(context.get_url('CinemaApp:detail_movie', movie.pk))
     review_par_links = context.browser.find_by_id('schedule_table')
     for i, row in enumerate(context.table):
-        assert review_par_links[3*i].text.startswith(row['rating'])
-        assert row['comment'] == review_par_links[3*i+1].text
-        assert review_par_links[3*i+2].text.startswith('Created by '+row['user'])
-
-    # q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
-    # from CinemaApp.models import Movie
-    # q_list.append(Q(('restaurant', Movie.objects.get(name=movie_name))))
-    # from CinemaApp.models import Session
-    # session = Session.objects.filter(reduce(operator.and_, q_list)).get()
-    # assert context.browser.url == context.get_url(session)
+        assert review_par_links[0].text.split('\n')[1].startswith(row['duration'] + " " + row['date'] + " " + row['hall'] + " " + row['schedule'])
 
 
 @then('There are {count:n} sessions')

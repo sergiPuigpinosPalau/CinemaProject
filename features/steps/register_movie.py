@@ -24,6 +24,8 @@ def step_impl(context):
             form = context.browser.find_by_tag('form').first
             for heading in row.headings:
                 context.browser.fill(heading, row[heading])
+                #context.wait()
+                context.browser.find_by_css('li.ui-menu-item').first.click()
             form.find_by_value('Submit').first.click()
 
 
@@ -33,6 +35,11 @@ def step_impl(context):
     from CinemaApp.models import Movie
     movie = Movie.objects.filter(reduce(operator.and_, q_list)).get()
     assert context.browser.url == context.get_url(movie)
+
+
+@then('I delete the current movie')
+def step_impl(context):
+    context.browser.find_link_by_text('Eliminar Peli').click()
 
 
 @then(u'There are {count:n} movies')
