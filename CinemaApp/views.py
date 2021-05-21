@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -36,11 +37,20 @@ class MovieList(ListView):
     template_name = 'Movies.html'
     context_object_name = 'movie_list'
 
+    paginate_by = 6
+
+    def get_queryset(self):
+        try:
+            return Movie.objects.all()
+        except:
+            return 0
+
 
 class CreateMovie(LoginRequiredMixin, CreateView):
     model = Movie
     template_name = 'CreateMovie.html'
     form_class = CreateFilmForm
+
 
 
 class DetailMovie(DetailView):
@@ -53,6 +63,7 @@ class DeleteMovie(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('CinemaApp:movie_list')
 
 
+
 class DeleteSession(LoginRequiredMixin, DeleteView):
     model = Session
 
@@ -60,7 +71,8 @@ class DeleteSession(LoginRequiredMixin, DeleteView):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
 
 
-class ModifySession(LoginRequiredMixin, UpdateView):
+
+class ModifySession(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Session
     template_name = 'ModifySession.html'
     fields = ['hall', 'date', 'schedule']
@@ -75,8 +87,11 @@ class ModifySession(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
 
+    def get_success_message(self, cleaned_data):
+        return "The session is modified "
 
-class CreateSession(LoginRequiredMixin, CreateView):
+
+class CreateSession(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Session
     form_class = CreateSessionForm
     template_name = 'CreateSession.html'
@@ -90,3 +105,6 @@ class CreateSession(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk']})
+
+    def get_success_message(self, cleaned_data):
+        return "The session was created "

@@ -15,4 +15,6 @@ urlpatterns = [
     path('movies/<int:pk>/session/create', CreateSession.as_view(), name='create_session'),
     path('movies/<int:pk_movie>/session/<int:pk>/modify', ModifySession.as_view(), name='modify_session'),
     path('movies/<int:pk_movie>/session/<int:pk>/delete', DeleteSession.as_view(), name='delete_session'),
+
+
 ]

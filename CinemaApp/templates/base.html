@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Cinema </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+{% block scriptp %}
+{% endblock %}
+ <style>
+    body {
+            background-color: #292b2c;
+             font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+    }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'CinemaApp:home' %}"><i class="fas fa-home"></i> Home</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'CinemaApp:movie_list' %}"><i class="fas fa-film"></i> Movies</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link"  href="{% url 'CinemaApp:create_movie' %}"> <i class="fas fa-plus-square"></i>  Create Movie</a>
+      </li>   </ul>
+            <ul class="navbar-nav flex-row">
+       {% if request.user.is_authenticated %}
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <strong class="d-none d-sm-block ms-1">{{user.username}}</strong>
+        </a>
+      </li>
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <strong class="d-none d-sm-block ms-1">Logout</strong>
+        </a>
+      </li>
+      {% else %}
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <strong class="d-none d-sm-block ms-1">Login  </strong>
+        </a>
+      </li>
+      {% endif %}
+
+
+    </ul>
+  </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+
+
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+   Web project
+    <a class="text-reset fw-bold" href="https://www.udl.cat/ca/es/">Universidad de Lleida</a>
+  </div>
+
+</footer>
+
+
+</body>
+</html>
+
+{% block script %}
+{% endblock %}

@@ -1,13 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<br><br><br><br>
+<div class="col d-flex justify-content-center">
+    <div class="card bg-light text-dark">
+         <div class="card-header">
+    <h5 class="card-title"> Modifiy Session </h5>
+  </div>
+  <div class="card-body">
+      <br>
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update">
+     <div class="form-group">
+                   <label >Name</label>
+        {{ form.hall }}
+              </div>
+              <div class="form-group">
+                  <label >Schedule</label>
+         {{ form.schedule }}
+              </div>
+              <div class="form-group">
+                  <label >Date</label>
+         {{ form.date }}
+                 </div>
+     <button onclick='this.parentNode.submit(); return false;' class="btn btn-sl  btn-dark"  ><i class="fas fa-plus-square"></i> Submit
+                    </button>
 </form>
-</body>
-</html>
+<br><br>
+      </div>
+</div>
+</div>
+<br><br><br><br>
+
+ {% endblock %}

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+{% extends "base.html" %}
+{% load static %}
+
+{% block scriptp %}
+     <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
     <script>
         plot="";
         genre="";
@@ -48,19 +48,57 @@
       });
     });
   </script>
-</head>
+{% endblock %}
 
-<body>
-    <form method="post" action="">
+{% block content %}
+<br><br>
+<div class="col d-flex justify-content-center">
+    <div class="card bg-light text-dark">
+
+        <div class="card-header">
+    <h5 class="card-title"> Create Movie </h5>
+  </div>
+  <div class="card-body">
+
+        <form method="post" action="">
         {% csrf_token %}
-            <input id="name" name="name"> <br>
-            <textarea id="description" name="description"></textarea><br>
-            <input id="genre" name="genre"> <br>
-            <input id="duration" name="duration"> <br>
-            <input id="released" name="released"> <br>
-            <input id="poster" name="poster" style=" visibility: hidden;"> <br>
-            <img id="myImg" width="200" height="250"> <br>
-        <input type="submit" value="Submit"/>
+
+ <div class="row">
+            <div class="col-sm">
+                         <div class="form-group">
+                            <label >Name</label>
+                        <input id="name" class="form-control" name="name">
+                     </div>
+                    <div class="form-group">
+                            <label >Description</label>
+                        <textarea id="description" class="form-control" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                            <label >Genre</label>
+                        <input id="genre" class="form-control" name="genre">
+                    </div>
+                    <div class="form-group">
+                            <label >Duration</label>
+                        <input id="duration" class="form-control" name="duration"> </div>
+                    <div class="form-group">
+                            <label >Released</label>
+                        <input id="released" class="form-control" name="released">
+                        </div>
+            </div>
+            <div class="col-sm">
+                <input id="poster" name="poster" style=" visibility: hidden;">
+
+                 <img id="myImg" width="300" height="300">
+            </div>
+        </div>
+
+             <button onclick='this.parentNode.submit(); return false;' class="btn btn-sl  btn-dark"  ><i class="fas fa-plus-square"></i> Submit
+                    </button>
     </form>
-</body>
-</html>
+        </div>
+
+</div>
+</div>
+<br><br>
+
+{% endblock %}
