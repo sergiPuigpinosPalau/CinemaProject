@@ -6,7 +6,7 @@
 <br><br><br>
 
 <div class="col d-flex justify-content-center">
-    <div class="card w-50">
+    <div class="card">
           <div class="card-body bg-light text-dark">
 
   <div class="row g-0">
@@ -55,31 +55,50 @@
     <h5 class="card-title"> Sessions </h5>
   </div>
   <div class="card-body">
+      {% if messages %}
+                {% for message in messages %}
+                       <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <p>   {{message}}</p>
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
 
-   {% for session in movie.movie_sessions.all %}
+            {% endfor %}
+
+      {% endif %}
+
+{% if movie.movie_sessions.all.count >  0 %}
     <table id="schedule_table" class="table table-bordered">
         <tr>
             <th>Duration</th>
             <th>Date</th>
             <th>Hall</th>
             <th>Schedule</th>
-            <th>Options</th>
+            <th>Modify</th>
+            <th>Delete</th>
         </tr>
+        {% for session in movie.movie_sessions.all %}
         <tr>
             <td>{{ session.duration }}</td>
             <td>{{ session.date }}</td>
             <td>{{ session.hall }}</td>
             <td>{{ session.schedule }}</td>
-            <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}">  <button type="button" class="btn btn-sl btn-dark" > Modificar </button></a>
-
-                <form action="{% url 'CinemaApp:delete_session' movie.id session.id %}" method="post">{% csrf_token %}
-                    <button onclick='this.parentNode.submit(); return false;' class="btn btn-sl  btn-danger"  ><i class="fas fa-trash-alt"></i> Delete
-                    </button>
-                </form>
+            <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}">  <button type="button" class="btn btn-sl btn-dark" ><i class="fas fa-edit"></i>  </button></a>
             </td>
+            <td> <form action="{% url 'CinemaApp:delete_session' movie.id session.id %}" method="post">{% csrf_token %}
+                    <button onclick='this.parentNode.submit(); return false;' class="btn btn-sl  btn-danger"  ><i class="fas fa-trash-alt"></i> </button>
+                </form></td>
         </tr>
+          {% endfor %}
     </table>
-{% endfor %}
+
+
+         {% else %}
+              <br>  <br>
+            <p class="text-center test-danger">There is no session for {{ movie.name }} at this time.</p>
+            <br>  <br>
+            {% endif %}
 
       <a href="{% url 'CinemaApp:create_session' movie.id %}" ><button type="button" class="btn btn-sl btn-dark" >  Create session for the movie {{ movie.name }} </button></a>
   </div>
@@ -88,4 +107,10 @@
 
 <br><br><br>
  {% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"  ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
 

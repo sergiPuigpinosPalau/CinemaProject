@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -51,6 +52,7 @@ class CreateMovie(LoginRequiredMixin, CreateView):
     form_class = CreateFilmForm
 
 
+
 class DetailMovie(DetailView):
     model = Movie
     template_name = 'DetailMovie.html'
@@ -61,6 +63,7 @@ class DeleteMovie(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('CinemaApp:movie_list')
 
 
+
 class DeleteSession(LoginRequiredMixin, DeleteView):
     model = Session
 
@@ -68,7 +71,8 @@ class DeleteSession(LoginRequiredMixin, DeleteView):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
 
 
-class ModifySession(LoginRequiredMixin, UpdateView):
+
+class ModifySession(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Session
     template_name = 'ModifySession.html'
     fields = ['hall', 'date', 'schedule']
@@ -83,8 +87,11 @@ class ModifySession(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
 
+    def get_success_message(self, cleaned_data):
+        return "The session is modified "
 
-class CreateSession(LoginRequiredMixin, CreateView):
+
+class CreateSession(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Session
     form_class = CreateSessionForm
     template_name = 'CreateSession.html'
@@ -98,3 +105,6 @@ class CreateSession(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk']})
+
+    def get_success_message(self, cleaned_data):
+        return "The session was created "

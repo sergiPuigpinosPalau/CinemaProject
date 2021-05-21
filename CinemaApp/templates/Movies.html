@@ -12,12 +12,11 @@
     <h5 class="card-title"> Movies </h5>
   </div>
   <div class="card-body">
-      <br>
 {% if page_obj.paginator.count >  0 %}
          <div class="row ">
          {% for movie in page_obj %}
   <div class="col">
-    <div class="card">
+    <div class="card" style="width: 18rem;">
       <img src="{{ movie.poster }}"   alt="{{ movie.poster }}" class="card-img-top" width="200" height="250">
       <div class="card-body">
        <a href="{% url 'CinemaApp:detail_movie' movie.id %}"> <h5 class="card-title">{{ movie.name }}</h5></a>
@@ -74,7 +73,14 @@
 </div>
 </div>
 
+<br><br>
 
 
 
  {% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"  ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
