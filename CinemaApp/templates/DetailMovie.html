@@ -29,10 +29,13 @@
         <p class="card-text">
           <small class="text-muted">Lasted movie {{ movie.duration }}</small>
         </p>
+           {% if request.user.is_authenticated and grup == True %}
         <hr>
+
           <form action="{% url 'CinemaApp:delete_movie' movie.id %}" method="post">{% csrf_token %}
               <button onclick='this.parentNode.submit(); return false;' class="btn btn-danger" id="delete_movie"><i class="fas fa-trash-alt"></i> Delete
             </button>
+               {% endif %}
       </div>
     </div>
      <div class="col-md-4">
@@ -75,8 +78,10 @@
             <th>Date</th>
             <th>Hall</th>
             <th>Schedule</th>
-            <th>Modify</th>
-            <th>Delete</th>
+            {% if request.user.is_authenticated and grup == True %}
+                <th>Modify</th>
+                <th>Delete</th>
+            {% endif %}
         </tr>
         {% for session in movie.movie_sessions.all %}
         <tr>
@@ -84,11 +89,17 @@
             <td>{{ session.date }}</td>
             <td>{{ session.hall }}</td>
             <td>{{ session.schedule }}</td>
-            <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}" id="Edit">  <button type="button" class="btn btn-sl btn-dark" ><i class="fas fa-edit"></i>  </button></a>
-            </td>
-            <td> <form action="{% url 'CinemaApp:delete_session' movie.id session.id %}" method="post">{% csrf_token %}
-                    <button onclick='this.parentNode.submit(); return false;' class="btn btn-sl  btn-danger" id="delete_session" ><i class="fas fa-trash-alt"></i> </button>
-                </form></td>
+
+             {% if request.user.is_authenticated and grup == True %}
+
+                <td><a href="{% url 'CinemaApp:modify_session' movie.id session.id %}" id="Edit">  <button type="button" class="btn btn-sl btn-dark" ><i class="fas fa-edit"></i>  </button></a>
+                </td>
+                <td>
+                    <form action="{% url 'CinemaApp:delete_session' movie.id session.id %}" method="post">{% csrf_token %}
+                        <button onclick='this.parentNode.submit(); return false;' class="btn btn-sl  btn-danger" id="delete_session" ><i class="fas fa-trash-alt"></i> </button>
+                    </form>
+                </td>
+            {% endif %}
         </tr>
           {% endfor %}
     </table>
@@ -99,8 +110,9 @@
             <p class="text-center test-danger">There is no session for {{ movie.name }} at this time.</p>
             <br>  <br>
             {% endif %}
-
+        {% if request.user.is_authenticated and grup == True %}
       <a href="{% url 'CinemaApp:create_session' movie.id %}" ><button type="button" class="btn btn-sl btn-dark" >  Create session for the movie {{ movie.name }} </button></a>
+        {% endif %}
   </div>
 </div>
 </div>

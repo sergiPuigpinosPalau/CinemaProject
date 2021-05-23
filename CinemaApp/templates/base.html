@@ -33,24 +33,30 @@
         <li class="nav-item">
         <a class="nav-link" href="{% url 'CinemaApp:movie_list' %}"><i class="fas fa-film"></i> Movies</a>
       </li>
+         {% if request.user.is_authenticated %}
       <li class="nav-item">
           <a class="nav-link"  href="{% url 'CinemaApp:create_movie' %}"> <i class="fas fa-plus-square"></i>  Create Movie</a>
-      </li>   </ul>
+      </li>
+          {% endif %}
+
+
+
+    </ul>
             <ul class="navbar-nav flex-row">
-       {% if request.user.is_authenticated %}
+       {% if request.user.is_authenticated and grup == True %}
       <li class="nav-item me-3 me-lg-1">
         <a class="nav-link d-sm-flex align-items-sm-center" href="#">
           <strong class="d-none d-sm-block ms-1">{{user.username}}</strong>
         </a>
       </li>
       <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="/accounts/logout/">
           <strong class="d-none d-sm-block ms-1">Logout</strong>
         </a>
       </li>
       {% else %}
       <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="/accounts/login/">
           <strong class="d-none d-sm-block ms-1">Login  </strong>
         </a>
       </li>

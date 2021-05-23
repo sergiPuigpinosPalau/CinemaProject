@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -29,6 +30,7 @@ class MainPage(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MainPage, self).get_context_data(**kwargs)
         context['latest_movies'] = Movie.objects.order_by('released')[:5]
+        context['grup'] = check_group(self.request.user)
         return context
 
 
@@ -45,22 +47,41 @@ class MovieList(ListView):
         except:
             return 0
 
+    def get_context_data(self, **kwargs):
+        context = super(MovieList, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
+
 
 class CreateMovie(LoginRequiredMixin, CreateView):
     model = Movie
     template_name = 'CreateMovie.html'
     form_class = CreateFilmForm
 
+    def get_context_data(self, **kwargs):
+        context = super(CreateMovie, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
 
 
 class DetailMovie(DetailView):
     model = Movie
     template_name = 'DetailMovie.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(DetailMovie, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
+
 
 class DeleteMovie(LoginRequiredMixin, DeleteView):
     model = Movie
     success_url = reverse_lazy('CinemaApp:movie_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(DeleteMovie, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
 
 
 
@@ -69,6 +90,11 @@ class DeleteSession(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('CinemaApp:detail_movie', kwargs={'pk': self.kwargs['pk_movie']})
+
+    def get_context_data(self, **kwargs):
+        context = super(DeleteSession, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
 
 
 
@@ -90,6 +116,10 @@ class ModifySession(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         return "The session is modified "
 
+    def get_context_data(self, **kwargs):
+        context = super(ModifySession, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
 
 class CreateSession(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Session
@@ -108,3 +138,15 @@ class CreateSession(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
     def get_success_message(self, cleaned_data):
         return "The session was created "
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateSession, self).get_context_data(**kwargs)
+        context['grup'] = check_group(self.request.user)
+        return context
+
+def check_group(user):
+    try:
+        group =  Group.objects.get(name='trabajador')
+        return group in user.groups.all()
+    except Group.DoesNotExist:
+        return False

@@ -23,12 +23,28 @@
     </style>
 </head>
 <body>
+<div class="login-page" >
+<div class="col d-flex justify-content-center">
+    <div class="card w-50">
+         <div class="card-body bg-light text-dark">
 
+              <div class="container">
+                 <div class=" row y justify-content-center">
+                       <img src="{% static 'img/icona_cine.png' %}" alt="Logo">
+                </div>
+             </div>
+             <h5 class="card-title text-center" >Welcome to the cinema</h5>
+             <div class="container">
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" value="login">Entrar</button>
+    <button class="w-100 btn btn-lg btn-dark p-2 " type="submit" value="login">Sign in</button>
 </form>
+                 </div>
+         </div>
+    </div>
+</div>
+</div>
 {##}
 {#<div class="login-page" >#}
 {#<div class="col d-flex justify-content-center">#}
