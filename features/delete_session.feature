@@ -35,6 +35,4 @@ Feature: Delete Session
     Then I'm viewing the details of the session for the movie "Spider"
       | duration | date         | hall    | schedule                           |
       | 2:00:00  | Jan. 2, 2021 | Hall: 1 | Schedule from 18:00:00 to 20:00:00 |
-    And I delete the current session
-    Then I'm redirected to the login form
-    And There are 1 sessions
+    Then There is no "delete_session" link available

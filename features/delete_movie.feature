@@ -22,6 +22,4 @@ Feature: Delete Movie
     Then I'm viewing the details page of a movie
       | name        |
       | Spider |
-    And I delete the current movie
-    Then I'm redirected to the login form
-    And There are 1 movies
+    Then There is no "delete_movie" link available

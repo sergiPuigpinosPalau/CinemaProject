@@ -37,4 +37,4 @@ def step_impl(context):
 
 @then('There is no "{link_text}" link available')
 def step_impl(context, link_text):
-    assert context.browser.is_element_not_present_by_xpath('//a[text()="'+link_text+'"]')
+    assert context.browser.is_element_not_present_by_id(link_text)
