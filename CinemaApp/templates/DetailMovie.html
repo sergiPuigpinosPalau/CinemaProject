@@ -5,7 +5,7 @@
 
 <br><br><br>
 
-<div class="col d-flex justify-content-center">
+<div class="col d-flex justify-content-center" vocab="http://schema.org/" typeof="Movie" resource="{{ movie.id }}">
     <div class="card">
           <div class="card-body bg-light text-dark">
 
@@ -16,18 +16,18 @@
 
          <div class="row">
             <div class="col-sm">
-              <h5 class="card-title" id="Title">{{ movie.name }}</h5>
+              <h5 class="card-title" id="Title" property="name">{{ movie.name }}</h5>
             </div>
             <div class="col-sm">
-              <h6 class="card-title">{{ movie.genre }}</h6>
+              <h6 class="card-title" property="genre">{{ movie.genre }}</h6>
             </div>
         </div>
 
-        <p class="card-text">
+        <p class="card-text" property="description">
           {{ movie.description }}
         </p>
         <p class="card-text">
-          <small class="text-muted">Lasted movie {{ movie.duration }}</small>
+            <small class="text-muted" >Lasted movie <span property="duration">{{ movie.duration }}</span></small>
         </p>
            {% if request.user.is_authenticated and grup == True %}
         <hr>
@@ -39,7 +39,7 @@
       </div>
     </div>
      <div class="col-md-4">
-      <img src="{{ movie.poster }}" width="200" height="250">
+      <img src="{{ movie.poster }}" width="200" height="250" property="image">
     </div>
 
   </div>
@@ -51,7 +51,7 @@
 <br>
 
 
-<div class="col d-flex justify-content-center">
+<div class="col d-flex justify-content-center" >
     <div class="card bg-light text-dark">
 
   <div class="card-header">
@@ -72,7 +72,7 @@
       {% endif %}
 
 {% if movie.movie_sessions.all.count >  0 %}
-    <table id="schedule_table" class="table table-bordered">
+    <table id="schedule_table" class="table table-bordered" >
         <tr>
             <th>Duration</th>
             <th>Date</th>
@@ -84,11 +84,14 @@
             {% endif %}
         </tr>
         {% for session in movie.movie_sessions.all %}
-        <tr>
-            <td>{{ session.duration }}</td>
-            <td>{{ session.date }}</td>
-            <td>{{ session.hall }}</td>
-            <td>{{ session.schedule }}</td>
+        <tr resource="{{ session.id }}" vocab="http://schema.org/" typeof="ScreeningEvent">
+
+
+            <td><span resource="{{ movie.id }}" property="workPresented"></span> <span property="duration">{{ session.duration }}</span> </td>
+            <td><span property="previousStartDate">{{ session.date }}</span> </td>
+            <td><span property="location">{{ session.hall }}</span> </td>
+            <td>Schedule from <span property="startDate">{{ session.schedule.starting_time }}</span> to <span property="startDate"> {{ session.schedule.end_time }} </span> </td>
+
 
              {% if request.user.is_authenticated and grup == True %}
 

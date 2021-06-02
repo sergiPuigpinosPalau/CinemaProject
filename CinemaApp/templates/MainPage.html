@@ -20,12 +20,12 @@
     {% for movie in latest_movies %}
       {% if forloop.counter == True %}
       <a href="{% url 'CinemaApp:detail_movie' movie.id %}"><div class="carousel-item active">
-         <a href="{% url 'CinemaApp:detail_movie' movie.id %}"> <img class="d-block w-100" src="{{ movie.poster }}" alt="{{ movie.title }}"></a>
-     </div> </a>
+         <a href="{% url 'CinemaApp:detail_movie' movie.id %}" resource="{{ movie.id }}" vocab="http://Schema.org/" typeof="Movie" > <img  class="d-block w-100" src="{{ movie.poster }}" alt="{{ movie.title }}" property="image"><span class="invisible" property="name">{{ movie.name }}</span></a>
+      </div> </a>
 
       {% else %}
-   <div class="carousel-item">
-      <a href="{% url 'CinemaApp:detail_movie' movie.id %}"> <img class="d-block w-100" src="{{ movie.poster }}" alt="{{ movie.title }}"></a>
+   <div class="carousel-item" >
+       <a href="{% url 'CinemaApp:detail_movie' movie.id %}" resource="{{ movie.id }}" vocab="http://Schema.org/" typeof="Movie"> <img class="d-block w-100" src="{{ movie.poster }}" alt="{{ movie.title }} " property="image"><span class="invisible" property="name">{{ movie.name }}</span></a>
     </div>
 
           {% endif %}

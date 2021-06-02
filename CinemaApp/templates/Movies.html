@@ -16,10 +16,10 @@
          <div class="row ">
          {% for movie in page_obj %}
   <div class="col">
-    <div class="card" style="width: 18rem;">
-      <img src="{{ movie.poster }}"   alt="{{ movie.poster }}" class="card-img-top" width="200" height="250">
-      <div class="card-body">
-       <a href="{% url 'CinemaApp:detail_movie' movie.id %}"> <h5 class="card-title">{{ movie.name }}</h5></a>
+    <div class="card" style="width: 18rem;" resource="{{ movie.id }}" vocab="http://Schema.org/" typeof="Movie">
+      <img property="image" src="{{ movie.poster }}"   alt="{{ movie.poster }}" class="card-img-top" width="200" height="250">
+      <div class="card-body"  property="name">
+       <a href="{% url 'CinemaApp:detail_movie' movie.id %}"> <h5 class="card-title" >{{ movie.name }}</h5></a>
 
       </div>
     </div>
