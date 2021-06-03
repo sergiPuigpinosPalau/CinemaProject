@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <p class="card-text" property="description">
+        <p class="card-text" property="abstract">
           {{ movie.description }}
         </p>
         <p class="card-text">
@@ -88,9 +88,9 @@
 
 
             <td><span resource="{{ movie.id }}" property="workPresented"></span> <span property="duration">{{ session.duration }}</span> </td>
-            <td><span property="previousStartDate">{{ session.date }}</span> </td>
+            <td><span property="doorTime">{{ session.date }}</span> </td>
             <td><span property="location">{{ session.hall }}</span> </td>
-            <td>Schedule from <span property="startDate">{{ session.schedule.starting_time }}</span> to <span property="startDate"> {{ session.schedule.end_time }} </span> </td>
+            <td>Schedule from <span property="startDate">{{ session.schedule.starting_time }}</span> to <span property="endDate"> {{ session.schedule.end_time }} </span> </td>
 
 
              {% if request.user.is_authenticated and grup == True %}
